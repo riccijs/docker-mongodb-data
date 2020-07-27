@@ -1,0 +1,2 @@
+mongorestore --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --authenticationDatabase admin -d location -c postal\ codes /data/setup/collections/us_postal_codes.bson
+mongorestore --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --authenticationDatabase admin -d location -c countries /data/setup/collections/countries.bson

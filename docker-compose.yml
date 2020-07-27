@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  db:
+    image: mongo
+    secrets:
+      - mongodb_password
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      resources:
+        reservations:
+          memory: 128M
+        limits:
+          memory: 256M
+    ports:
+      - 27017:27017
+    networks:
+      - mongodb_backend_network
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongodb_password
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /Users/bricci/dev/mongodb:/data/setup
+      - type: bind
+        source: /Users/bricci/docker/volumes/mongodb
+        target: /data/db
+
+networks:
+  mongodb_backend_network:
+
+secrets:
+  mongodb_password:
+    external: true
